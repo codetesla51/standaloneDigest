@@ -3,7 +3,7 @@
         'name' => 'u0_a234/digest',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'fea1033522b51bfab48787829a65165450d30b7a',
+        'reference' => '84ffbcc6693db3efaf4913baa04a045adcc9db26',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -67,7 +67,7 @@
         'u0_a234/digest' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'fea1033522b51bfab48787829a65165450d30b7a',
+            'reference' => '84ffbcc6693db3efaf4913baa04a045adcc9db26',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
