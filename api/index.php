@@ -1,12 +1,8 @@
 <?php
-$allowed_origin = 'https://devuthman.vercel.app/';
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if ($origin === $allowed_origin) {
-    header('Access-Control-Allow-Origin: ' . $allowed_origin);
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Accept');
-}
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Accept');
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
