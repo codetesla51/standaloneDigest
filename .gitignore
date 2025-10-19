@@ -1,1 +1,2 @@
-.envvendor/
+.env
+vendor/
