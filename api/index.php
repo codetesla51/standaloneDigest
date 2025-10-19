@@ -1,8 +1,9 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://devuthman.vercel.app/');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Accept');
+header('Access-Control-Allow-Credentials: true');
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -211,59 +212,63 @@ function buildNotificationHTML(
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <style>
-            body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 30px; border-radius: 12px 12px 0 0; text-align: center; border-bottom: 3px solid #00d4ff; }
-            .header h1 { color: #00d4ff; margin: 0; font-size: 24px; font-weight: 600; }
-            .header p { color: #aaa; margin: 8px 0 0 0; font-size: 13px; }
-            .content { background: #1a1a1a; padding: 30px; border: 1px solid #333; border-top: none; }
-            .info-block { background: #252525; border-left: 4px solid #00d4ff; padding: 15px; margin: 20px 0; border-radius: 6px; }
-            .info-label { color: #00d4ff; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-            .info-value { color: #e0e0e0; font-size: 14px; word-break: break-word; }
-            .message-block { background: #2a2a2a; padding: 20px; border-radius: 8px; border: 1px solid #404040; margin: 20px 0; }
-            .message-label { color: #00d4ff; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; }
-            .message-text { color: #d0d0d0; font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; }
-            .meta { color: #888; font-size: 12px; margin-top: 15px; border-top: 1px solid #404040; padding-top: 10px; }
-            .footer { background: #252525; padding: 20px; text-align: center; border-radius: 0 0 12px 12px; border: 1px solid #333; border-top: none; }
-            .reply-btn { display: inline-block; background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%); color: #000; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; margin: 15px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3); }
-            .reply-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5); }
-            .footer-text { color: #888; font-size: 12px; }
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+            body { margin: 0; padding: 0; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+            .container { max-width: 600px; margin: 40px auto; background: #ffffff; }
+            .header { padding: 48px 40px 32px; border-bottom: 2px solid #000000; }
+            .header h1 { color: #000000; margin: 0 0 8px 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+            .header p { color: #666666; margin: 0; font-size: 15px; font-weight: 400; }
+            .content { padding: 40px; }
+            .info-row { margin-bottom: 32px; }
+            .label { color: #000000; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+            .value { color: #000000; font-size: 16px; line-height: 1.5; padding: 16px; background: #fafafa; border-left: 3px solid #000000; }
+            .value a { color: #000000; text-decoration: underline; }
+            .message-box { background: #fafafa; padding: 24px; border-left: 3px solid #000000; margin: 32px 0; }
+            .message-text { color: #000000; font-size: 15px; line-height: 1.7; white-space: pre-wrap; word-wrap: break-word; margin: 0; }
+            .meta { color: #999999; font-size: 13px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e0e0e0; }
+            .button-container { text-align: center; margin: 40px 0; }
+            .reply-btn { display: inline-block; background: #000000; color: #ffffff; padding: 16px 48px; text-decoration: none; font-weight: 600; font-size: 15px; border: 2px solid #000000; transition: all 0.2s; }
+            .reply-btn:hover { background: #ffffff; color: #000000; }
+            .footer { background: #fafafa; padding: 32px; text-align: center; border-top: 1px solid #e0e0e0; }
+            .footer-text { color: #999999; font-size: 13px; margin: 0; }
         </style>
     </head>
     <body>
         <div class='container'>
             <div class='header'>
                 <h1>New Contact Submission</h1>
-                <p>You received a new message</p>
+                <p>You have received a new message</p>
             </div>
             <div class='content'>
-                <div class='info-block'>
-                    <div class='info-label'>From</div>
-                    <div class='info-value'>{$name}</div>
+                <div class='info-row'>
+                    <span class='label'>From</span>
+                    <div class='value'>{$name}</div>
                 </div>
 
-                <div class='info-block'>
-                    <div class='info-label'>Email Address</div>
-                    <div class='info-value'><a href='mailto:{$sender_email}' style='color: #00d4ff; text-decoration: none;'>{$sender_email}</a></div>
+                <div class='info-row'>
+                    <span class='label'>Email Address</span>
+                    <div class='value'><a href='mailto:{$sender_email}'>{$sender_email}</a></div>
                 </div>
 
-                <div class='info-block'>
-                    <div class='info-label'>Inquiry Type</div>
-                    <div class='info-value'>{$inquiry}</div>
+                <div class='info-row'>
+                    <span class='label'>Inquiry Type</span>
+                    <div class='value'>{$inquiry}</div>
                 </div>
 
-                <div class='message-block'>
-                    <span class='message-label'>Message</span>
-                    <div class='message-text'>{$message}</div>
-                    <div class='meta'>Submitted on {$formatted_time}</div>
+                <div class='info-row'>
+                    <span class='label'>Message</span>
+                    <div class='message-box'>
+                        <div class='message-text'>{$message}</div>
+                        <div class='meta'>Received on {$formatted_time}</div>
+                    </div>
                 </div>
 
-                <div style='text-align: center; margin-top: 30px;'>
+                <div class='button-container'>
                     <a href='{$reply_link}' class='reply-btn'>Reply to {$name}</a>
                 </div>
             </div>
             <div class='footer'>
-                <p class='footer-text'>This is an automated notification from your contact form</p>
+                <p class='footer-text'>Automated notification from your contact form</p>
             </div>
         </div>
     </body>
@@ -280,31 +285,31 @@ function buildDigestHTML($contacts, $reply_email)
     $reply_link = "mailto:{$contact["email"]}?subject={$reply_subject}";
 
     $contact_cards .= "
-            <div style='background: #252525; border: 1px solid #333; border-left: 4px solid #00d4ff; padding: 20px; margin: 15px 0; border-radius: 8px;'>
-                <div style='display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;'>
-                    <div>
-                        <div style='color: #00d4ff; font-weight: 600; font-size: 14px;'>{$contact["name"]}</div>
-                        <div style='color: #888; font-size: 12px; margin-top: 4px;'>{$formatted_time}</div>
+            <div style='background: #ffffff; border: 2px solid #000000; padding: 32px; margin: 24px 0;'>
+                <div style='margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #e0e0e0;'>
+                    <div style='color: #000000; font-weight: 700; font-size: 18px; margin-bottom: 4px;'>{$contact["name"]}</div>
+                    <div style='color: #999999; font-size: 13px;'>{$formatted_time}</div>
+                </div>
+
+                <div style='margin: 16px 0;'>
+                    <div style='color: #000000; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;'>Email</div>
+                    <div style='color: #000000; font-size: 14px;'><a href='mailto:{$contact["email"]}' style='color: #000000; text-decoration: underline;'>{$contact["email"]}</a></div>
+                </div>
+
+                <div style='margin: 16px 0;'>
+                    <div style='color: #000000; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;'>Inquiry Type</div>
+                    <div style='color: #000000; font-size: 14px;'>{$contact["inquiry"]}</div>
+                </div>
+
+                <div style='margin: 16px 0;'>
+                    <div style='color: #000000; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;'>Message</div>
+                    <div style='background: #fafafa; padding: 16px; border-left: 3px solid #000000;'>
+                        <div style='color: #000000; font-size: 14px; line-height: 1.6; white-space: pre-wrap;'>{$contact["message"]}</div>
                     </div>
                 </div>
 
-                <div style='background: #1a1a1a; padding: 12px; border-radius: 6px; margin: 12px 0; border-left: 3px solid #404040;'>
-                    <div style='color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;'>Email</div>
-                    <div style='color: #e0e0e0; font-size: 13px;'><a href='mailto:{$contact["email"]}' style='color: #00d4ff; text-decoration: none;'>{$contact["email"]}</a></div>
-                </div>
-
-                <div style='background: #1a1a1a; padding: 12px; border-radius: 6px; margin: 12px 0; border-left: 3px solid #404040;'>
-                    <div style='color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;'>Inquiry Type</div>
-                    <div style='color: #e0e0e0; font-size: 13px;'>{$contact["inquiry"]}</div>
-                </div>
-
-                <div style='background: #1a1a1a; padding: 12px; border-radius: 6px; margin: 12px 0; border-left: 3px solid #404040;'>
-                    <div style='color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;'>Message</div>
-                    <div style='color: #d0d0d0; font-size: 13px; line-height: 1.5; white-space: pre-wrap;'>{$contact["message"]}</div>
-                </div>
-
-                <div style='text-align: center; margin-top: 12px;'>
-                    <a href='{$reply_link}' style='display: inline-block; background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%); color: #000; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; font-size: 12px; transition: all 0.3s ease;'>Reply</a>
+                <div style='text-align: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid #e0e0e0;'>
+                    <a href='{$reply_link}' style='display: inline-block; background: #000000; color: #ffffff; padding: 12px 32px; text-decoration: none; font-weight: 600; font-size: 14px; border: 2px solid #000000;'>Reply</a>
                 </div>
             </div>
         ";
@@ -320,18 +325,18 @@ function buildDigestHTML($contacts, $reply_email)
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <style>
-            body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; }
-            .container { max-width: 650px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 35px; border-radius: 12px 12px 0 0; text-align: center; border-bottom: 3px solid #00d4ff; }
-            .header h1 { color: #00d4ff; margin: 0; font-size: 28px; font-weight: 600; }
-            .header p { color: #aaa; margin: 12px 0 0 0; font-size: 14px; }
-            .stats { display: flex; justify-content: center; gap: 30px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #404040; }
-            .stat { text-align: center; }
-            .stat-number { color: #00d4ff; font-size: 28px; font-weight: 700; }
-            .stat-label { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-            .content { background: #1a1a1a; padding: 30px; border: 1px solid #333; border-top: none; }
-            .footer { background: #252525; padding: 20px; text-align: center; border-radius: 0 0 12px 12px; border: 1px solid #333; border-top: none; }
-            .footer-text { color: #888; font-size: 12px; }
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+            body { margin: 0; padding: 0; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+            .container { max-width: 700px; margin: 40px auto; background: #ffffff; }
+            .header { padding: 48px 40px; border-bottom: 2px solid #000000; text-align: center; }
+            .header h1 { color: #000000; margin: 0 0 12px 0; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+            .header p { color: #666666; margin: 0 0 24px 0; font-size: 16px; }
+            .stats { display: inline-block; background: #000000; color: #ffffff; padding: 16px 32px; }
+            .stat-number { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
+            .stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+            .content { padding: 40px; }
+            .footer { background: #fafafa; padding: 32px; text-align: center; border-top: 1px solid #e0e0e0; }
+            .footer-text { color: #999999; font-size: 13px; margin: 0; }
         </style>
     </head>
     <body>
@@ -340,10 +345,8 @@ function buildDigestHTML($contacts, $reply_email)
                 <h1>Daily Contact Digest</h1>
                 <p>{$today}</p>
                 <div class='stats'>
-                    <div class='stat'>
-                        <div class='stat-number'>{$total}</div>
-                        <div class='stat-label'>Submissions</div>
-                    </div>
+                    <div class='stat-number'>{$total}</div>
+                    <div class='stat-label'>Total Submissions</div>
                 </div>
             </div>
             <div class='content'>
