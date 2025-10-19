@@ -1,5 +1,5 @@
 <?php
-$allowed_origin = 'https://devuthman.vercel.app';
+$allowed_origin = 'https://devuthman.vercel.app/';
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
 if ($origin === $allowed_origin) {
