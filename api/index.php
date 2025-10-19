@@ -2,16 +2,17 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . "/../vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
 try {
-  // Load .env file
-  $dotenv = Dotenv::createImmutable(__DIR__);
-  $dotenv->load();
-
+  $dotenv_path = __DIR__ . '/../.env';
+if (file_exists($dotenv_path)) {
+    $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->load();
+}
   // Load environment variables
   $db_url = $_ENV["DATABASE_URL"] ?? null;
   $gmail_email = $_ENV["GMAIL_EMAIL"] ?? null;
